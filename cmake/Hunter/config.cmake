@@ -1,0 +1,2 @@
+hunter_config(python VERSION "v0.1.0" CMAKE_ARGS BUILTIN_PYEXPAT=On)
+hunter_config(ZLIB VERSION "1.3.0-p0" CMAKE_ARGS BUILD_SHARED_LIBS=On)

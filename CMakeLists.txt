@@ -16,7 +16,24 @@
 # ~~~
 cmake_minimum_required(VERSION 3.22.1)
 
-project(VVL LANGUAGES CXX)
+
+include(cmake/HunterGate.cmake)
+HunterGate(
+    URL "https://github.com/mloccy/hunter/archive/refs/tags/v0.25.30.tar.gz"
+    SHA1 "bbedb6c91e69fbdd608052495ecf74936847e10b"
+	LOCAL)
+
+
+project(VVL)
+
+hunter_add_package(Vulkan-Headers)
+hunter_add_package(spirv-tools)
+hunter_add_package(Vulkan-Utility-Libraries)
+if (LINUX)
+	hunter_add_package(xcb)
+	hunter_add_package(x11)
+	hunter_add_package(xrandr)
+endif()
 
 # This variable enables downstream users to customize the target API
 # variant (e.g. Vulkan SC)
@@ -115,7 +132,7 @@ find_package(VulkanUtilityLibraries CONFIG QUIET)
 
 find_package(SPIRV-Headers CONFIG QUIET)
 
-find_package(SPIRV-Tools-opt CONFIG QUIET)
+find_package(spirv-tools CONFIG QUIET)
 
 # NOTE: Our custom code generation target isn't desirable for system package managers or add_subdirectory users.
 # So this target needs to be off by default to avoid obtuse build errors or patches.
