@@ -19,8 +19,8 @@ cmake_minimum_required(VERSION 3.22.1)
 
 include(cmake/HunterGate.cmake)
 HunterGate(
-    URL "https://github.com/mloccy/hunter/archive/refs/tags/v0.25.30.tar.gz"
-    SHA1 "bbedb6c91e69fbdd608052495ecf74936847e10b"
+    URL "https://github.com/mloccy/hunter/archive/refs/tags/v0.25.46.tar.gz"
+    SHA1 "370cb66c8365810abd7a58cfd594e4271941f0d2"
 	LOCAL)
 
 
