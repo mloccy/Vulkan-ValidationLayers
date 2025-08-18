@@ -33,6 +33,7 @@ if (LINUX)
 	hunter_add_package(xcb)
 	hunter_add_package(x11)
 	hunter_add_package(xrandr)
+	hunter_add_package(wayland)
 endif()
 
 # This variable enables downstream users to customize the target API
