@@ -15,20 +15,22 @@
 # limitations under the License.
 # ~~~
 cmake_minimum_required(VERSION 3.22.1)
-
+if (WIN32)
+    set(HUNTER_ROOT "C:\\.hunter")
+endif()
 
 include(cmake/HunterGate.cmake)
 HunterGate(
-    URL "https://github.com/mloccy/hunter/archive/refs/tags/v0.25.46.tar.gz"
-    SHA1 "370cb66c8365810abd7a58cfd594e4271941f0d2"
+    URL "https://github.com/mloccy/hunter/archive/refs/tags/v0.25.47.tar.gz"
+    SHA1 "2c2929082ed5f71466744d1d4110351136f27449"
 	LOCAL)
 
 
-project(VVL)
+project(VVL LANGUAGES C CXX)
 
 hunter_add_package(Vulkan-Headers)
 hunter_add_package(spirv-tools)
-hunter_add_package(Vulkan-Utility-Libraries)
+hunter_add_package(VUL)
 if (LINUX)
 	hunter_add_package(xcb)
 	hunter_add_package(x11)
@@ -49,6 +51,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_CXX_VISIBILITY_PRESET "hidden")
 set(CMAKE_VISIBILITY_INLINES_HIDDEN "YES")
 
+include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON) # Remove when min is 3.26, see CMP0143
@@ -227,3 +230,20 @@ if(BUILD_TESTS)
     # Set tests as Visual Studio startup project
     set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT vk_layer_validation_tests)
 endif()
+
+set(PACKAGE_NAME VVL)
+
+write_basic_package_version_file(
+  ${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE_NAME}ConfigVersion.cmake
+  VERSION ${VulkanHeaders_VERSION}
+  COMPATIBILITY SameMajorVersion )
+
+set(NAMESPACE "${PROJECT_NAME}_")
+configure_package_config_file("cmake/Config.cmake.in"
+  ${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE_NAME}Config.cmake
+  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PACKAGE_NAME}
+  PATH_VARS FINAL_JSON_PATH)
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE_NAME}Config.cmake
+              ${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE_NAME}ConfigVersion.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PACKAGE_NAME} )

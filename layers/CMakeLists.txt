@@ -580,6 +580,7 @@ add_custom_command(TARGET vvl POST_BUILD
 
 # For UNIX-based systems, `library_path` should not contain a relative path (indicated by "./") before installing to system directories
 # This json isn't used for regular local development, it's used for installation
+
 if (UNIX)
     set(UNIX_INTERMEDIATE_FILE "${CMAKE_CURRENT_BINARY_DIR}/json/unix_install_validation.json")
 
@@ -592,10 +593,13 @@ if (UNIX)
     configure_file(${INPUT_FILE} ${UNIX_INTERMEDIATE_FILE} @ONLY)
 
     install(FILES ${UNIX_INTERMEDIATE_FILE} DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/vulkan/explicit_layer.d RENAME ${OUTPUT_FILE_FINAL_NAME})
+
+    set(FINAL_JSON_PATH "${CMAKE_INSTALL_DATAROOTDIR}/vulkan/explicit_layer.d/${OUTPUT_FILE_FINAL_NAME}" PARENT_SCOPE)
 endif()
 
 if (WIN32)
     install(FILES ${INTERMEDIATE_FILE} DESTINATION ${LAYER_INSTALL_DIR} RENAME ${OUTPUT_FILE_FINAL_NAME})
+    set(FINAL_JSON_PATH "${LAYER_INSTALL_DIR}/${OUTPUT_FILE_FINAL_NAME}" PARENT_SCOPE)
 endif()
 if (MSVC)
     install(FILES $<TARGET_PDB_FILE:vvl> DESTINATION ${LAYER_INSTALL_DIR} OPTIONAL)
