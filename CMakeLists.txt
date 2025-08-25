@@ -21,8 +21,8 @@ endif()
 
 include(cmake/HunterGate.cmake)
 HunterGate(
-    URL "https://github.com/mloccy/hunter/archive/refs/tags/v0.25.47.tar.gz"
-    SHA1 "2c2929082ed5f71466744d1d4110351136f27449"
+    URL "https://github.com/mloccy/hunter/archive/refs/tags/v0.25.58.tar.gz"
+    SHA1 "8c4778cdd7006e8f0bc15ec85c6f40cf7a3ea1d9"
 	LOCAL)
 
 

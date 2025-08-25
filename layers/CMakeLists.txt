@@ -585,9 +585,9 @@ if (UNIX)
     set(UNIX_INTERMEDIATE_FILE "${CMAKE_CURRENT_BINARY_DIR}/json/unix_install_validation.json")
 
     if(APPLE)
-        set(JSON_LIBRARY_PATH "lib${LAYER_NAME}.dylib")
+        set(JSON_LIBRARY_PATH "../../../${LAYER_INSTALL_DIR}/lib${LAYER_NAME}.dylib")
     else()
-        set(JSON_LIBRARY_PATH "lib${LAYER_NAME}.so")
+        set(JSON_LIBRARY_PATH "../../../${LAYER_INSTALL_DIR}/lib${LAYER_NAME}.so")
     endif()
 
     configure_file(${INPUT_FILE} ${UNIX_INTERMEDIATE_FILE} @ONLY)
